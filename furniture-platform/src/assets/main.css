@@ -1,0 +1,315 @@
+/* === IMPORT TAILWIND === */
+@import 'tailwindcss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === VARIABLES === */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary-color: #059669;
+  --text-color: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --hover-color: #f3f4f6;
+}
+
+/* === BODY === */
+body {
+  margin: 0;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* === HEADER === */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #95674d;
+  color: white;
+  padding: 0.5rem 2rem;
+  font-family: 'Text Me One', sans-serif;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* === LOGO (gauche) === */
+.logo-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.logo {
+  height: 150px;
+  width: auto;
+}
+
+/* === TITRE (centre) === */
+.title-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.header-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-subtitle {
+  font-size: 1rem;
+  margin: 0;
+  color: #f5f2f0;
+}
+
+/* === NAVBAR (droite) === */
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  justify-content: flex-end;
+  padding: 0.2rem 1rem;
+}
+
+/* === NAVBAR LINKS === */
+.navbar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+  transform: scale(1);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+  background-color: #d2b48c;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.navbar-link svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* === RESPONSIVE HEADER === */
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .logo-container,
+  nav {
+    justify-content: center;
+  }
+
+  .logo {
+    height: 80px;
+  }
+
+  .header-title {
+    font-size: 1.6rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+/* === FOOTER === */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #95674d;
+  color: white;
+  font-family: 'Text Me One', sans-serif;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.footer-links a:hover {
+  color: #d2b48c;
+}
+
+/* === FORM INPUTS === */
+input[type='text'],
+input[type='date'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  transition: all 0.2s;
+  background-color: white;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1);
+}
+
+input::placeholder,
+select::placeholder {
+  color: var(--text-secondary);
+}
+
+input:disabled,
+select:disabled {
+  background-color: var(--hover-color);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* === CARDS === */
+.card {
+  display: inline-block; /* Adapte la taille à son contenu */
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  margin: 1rem auto; /* Centre la carte horizontalement */
+  max-width: 90%; /* Empêche de dépasser sur petits écrans */
+  min-width: 250px; /* Optionnel : taille mini pour cohérence */
+}
+
+/* centrer plusieurs cartes dans un conteneur */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/* === TITRE DE LA CARTE === */
+.card-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+/* === SUBMIT BUTTONS === */
+.submit-btn,
+.donate-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover:not(:disabled),
+.donate-btn:hover:not(:disabled) {
+  background-color: #047857;
+}
+
+.submit-btn:disabled,
+.donate-btn:disabled {
+  background-color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+/* === SUCCESS MESSAGE === */
+.success-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #10b981;
+  color: white;
+  padding: 0.75rem;
+  text-align: center;
+  animation: fadeOut 3s ease-in-out forwards;
+  opacity: 1;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
