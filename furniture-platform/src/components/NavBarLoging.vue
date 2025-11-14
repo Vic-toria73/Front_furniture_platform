@@ -1,14 +1,14 @@
 <template>
     <nav class="navbar">
-        <NavbarLink to="/panier">
+        <NavbarLink to="/cart">
             Panier
         </NavbarLink>
 
-        <NavbarLink to="/compte">
+        <NavbarLink to="/user">
             Compte
         </NavbarLink>
 
-        <NavbarLink to="/connexion">
+        <NavbarLink to="/Deconnexion">
             Déconnexion
         </NavbarLink>
     </nav>

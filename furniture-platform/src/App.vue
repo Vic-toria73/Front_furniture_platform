@@ -1,8 +1,18 @@
 <template>
- <RouterView/>
+  <div class="app-container">
+    <TheHeader/>
+    <!-- Contenu de la page -->
+    <main class="content">
+      <RouterView />
+    </main>
+
+    <TheFooter/>
+  </div>
 </template>
 
 <script setup lang="ts">
+import TheFooter from './components/TheFooter.vue';
+import TheHeader from './components/TheHeader.vue';
 </script>
 
 <style>
@@ -17,10 +27,11 @@ html, body, #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: 'Text Me One', sans-serif;
 }
 
 /* Le contenu principal prend tout l’espace disponible */
-.main-content {
+.content {
   flex: 1;
 }
 

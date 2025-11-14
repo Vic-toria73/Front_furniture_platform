@@ -1,6 +1,4 @@
 <template>
-  <TheHeader />
-
   <!-- Message de succès -->
   <div class="success-message" v-if="message">
     <div class="success-icon">
@@ -9,7 +7,6 @@
     {{ message }}
   </div>
 
-  <!-- Contenu principal -->
   <div class="main-content">
     <div class="card">
       <h2 class="card-header">Inscription</h2>
@@ -75,13 +72,11 @@
     </div>
   </div>
 
-  <TheFooter />
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { registerUser } from "../services/authService";
-import TheFooter from "@/components/TheFooter.vue";
 import TheHeader from "@/components/TheHeader.vue";
 import { CheckCircle, Lock, LogIn, Mail, User } from "lucide-vue-next";
 

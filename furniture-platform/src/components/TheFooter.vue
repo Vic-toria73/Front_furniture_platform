@@ -4,10 +4,10 @@
       <!-- Section gauche : logo ou nom du site -->
       <!-- Section centrale : liens -->
       <nav class="footer-links">
-        <RouterLink to="/" class="footer-link">FAQ</RouterLink>
-        <RouterLink to="/t" class="footer-link">Contact</RouterLink>
-        <RouterLink to="/" class="footer-link">À propos</RouterLink>
-        <RouterLink to="/" class="footer-link">Mentions légales</RouterLink>
+        <RouterLink to="/home" class="footer-link">FAQ</RouterLink>
+        <RouterLink to="/home" class="footer-link">Contact</RouterLink>
+        <RouterLink to="/home" class="footer-link">À propos</RouterLink>
+        <RouterLink to="/home" class="footer-link">Mentions légales</RouterLink>
       </nav>
 
       <!-- Section droite : réseaux sociaux -->
@@ -67,19 +67,6 @@ defineOptions({
 
   gap: 1.5rem;
   text-align: center;
-}
-
-/* === LOGO + TITRE (optionnel si tu veux les remettre plus tard) === */
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.logo {
-  height: 100px;
-  width: auto;
-  border-radius: 6px;
 }
 
 /* === LIENS CENTRAUX === */

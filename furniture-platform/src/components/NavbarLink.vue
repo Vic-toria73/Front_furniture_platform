@@ -25,7 +25,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-// ✅ On vérifie que l'icône existe avant d'y accéder
+// On vérifie que l'icône existe avant d'y accéder
 const IconComponent = computed(() => {
   return props.icon ? (icons[props.icon] as any) : null
 })

@@ -1,6 +1,4 @@
 <template>
-  <TheHeader />
-
   <div class="success-message" v-if="successMessage" :class="messageType">
     <div class="success-icon">
       <CheckCircle class="w-5 h-5" />
@@ -33,11 +31,9 @@
     </div>
   </div>
 
-  <TheFooter/>
 </template>
 
 <script setup lang="ts">
-import TheFooter from '@/components/TheFooter.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import { ref, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
