@@ -9,7 +9,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary-color: #059669;
+  --primary-color: #2a5;
   --text-color: #1f2937;
   --text-secondary: #6b7280;
   --border-color: #e5e7eb;
@@ -24,59 +24,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* === HEADER === */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #95674d;
-  color: white;
-  padding: 0.5rem 2rem;
-  font-family: 'Text Me One', sans-serif;
-  flex-wrap: wrap;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* === LOGO (gauche) === */
-.logo-container {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.logo {
-  height: 150px;
-  width: auto;
-}
-
-/* === TITRE (centre) === */
-.title-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.title-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.header-title {
-  font-size: 2rem;
-  font-weight: 600;
+html, body {
+  height: 100%;
   margin: 0;
-}
-
-.header-subtitle {
-  font-size: 1rem;
-  margin: 0;
-  color: #f5f2f0;
+  padding: 0;
 }
 
 /* === NAVBAR (droite) === */

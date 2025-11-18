@@ -1,7 +1,8 @@
 <template>
+    <AdminFurnitureList/>
 </template>
 <script setup lang="ts">
 
-import TheHeader from '@/components/TheHeader.vue';
+import AdminFurnitureList from '@/components/AdminFurnitureList.vue';
 
 </script>

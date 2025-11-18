@@ -1,15 +1,14 @@
 <template>
-  <div class="app-container">
-    <TheHeader/>
-    <!-- Contenu de la page -->
+  <div id="app">
+    <TheHeader />
+
     <main class="content">
-      <RouterView />
+      <router-view />
     </main>
 
-    <TheFooter/>
+    <TheFooter />
   </div>
 </template>
-
 <script setup lang="ts">
 import TheFooter from './components/TheFooter.vue';
 import TheHeader from './components/TheHeader.vue';
@@ -22,17 +21,14 @@ html, body, #app {
   padding: 0;
 }
 
-/* Le conteneur principal occupe tout l’écran */
 #app {
+  min-height: 100vh;        /* Toute la hauteur */
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  font-family: 'Text Me One', sans-serif;
 }
 
-/* Le contenu principal prend tout l’espace disponible */
 .content {
-  flex: 1;
+  flex: 1;                  /* Le main prend tout l'espace disponible */
 }
 
 /* Petit ajustement visuel si nécessaire */

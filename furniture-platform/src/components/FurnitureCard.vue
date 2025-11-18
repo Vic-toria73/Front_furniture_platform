@@ -1,29 +1,31 @@
 <template>
   <div class="card">
 
-    <!-- L'image devient cliquable -->
-    <router-link :to="'/furniture/' + furniture.id">
-      <img
-  :src="furniture.pictures?.[0]?.url"
-  @error="onImageError"
-  class="card-img"
-/>
+    <router-link 
+      class="card-link"
+      :to="{ name: 'FurnitureDetail', params: { id: furniture.id } }"
+    >
+      <img 
+        :src="furniture.pictures?.[0]?.url" 
+        @error="onImageError" 
+        class="card-img" 
+      />
+
+      <h3>{{ furniture.name }}</h3>
+      <p v-if="furniture.type">Type : {{ furniture.type.name }}</p>
+      <p class="price">{{ furniture.price }} €</p>
     </router-link>
 
-    <h3>{{ furniture.name }}</h3>
-    <p class="price">{{ furniture.price }} €</p>
-
-
-    <!-- Ajout au panier -->
-    <button class="submit-btn" type="submit" @click="addToCart">
+    <button class="submit-btn" type="button" @click="addToCart">
       Ajouter au panier
     </button>
 
   </div>
 </template>
 
+
+
 <script lang="ts" setup>
-import { defineProps, defineEmits } from "vue";
 import type { Furniture } from "@/models/Furniture";
 
 
@@ -35,7 +37,7 @@ const addToCart = () => emit("add-to-cart", props.furniture);
 const onImageError = (event: Event) => {
   const img = event.target as HTMLImageElement;
   img.src = "/images/placeholder.png";
-  }
+}
 </script>
 
 <style scoped>
@@ -46,17 +48,31 @@ const onImageError = (event: Event) => {
   padding: 15px;
   display: flex;
   flex-direction: column;
+}
+
+.card-link {
+  flex: 1;              
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
 .card-img {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
+  height: 260px;       
+  object-fit: cover;    
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  display: block;
 }
 
 .price {
   font-size: 1.2rem;
   font-weight: bold;
+  color: #3a7;
+}
+
+.submit-btn {
+  margin-top: auto;     /* pousse le bouton en bas */
 }
 </style>

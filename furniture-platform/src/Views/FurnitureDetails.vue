@@ -11,9 +11,9 @@
     <div v-else-if="furniture" class="detail">
 
       <!-- Section image -->
-      <div class="images">
+      <div class="pictures">
         <img
-          class="main-image"
+          class="main-picture"
           :src="selectedImage || furniture.pictures?.[0]?.url || '/images/placeholder.png'"
           :alt="furniture.name"
           @error="onImageError"
@@ -35,6 +35,7 @@
       <!-- Section description -->
       <div class="info">
         <h1>{{ furniture.name }}</h1>
+        <p class="type"><strong>Type :</strong> {{ furniture.type?.name }}</p>
         <p class="price">{{ furniture.price }} €</p>
         <p class="description">{{ furniture.description }}</p>
 
@@ -70,7 +71,9 @@ const onImageError = (event: Event) => {
 onMounted(async () => {
   try {
     const id = route.params.id;
-    const res = await axios.get(`/api/furniture/${id}`);
+    const res = await axios.get(`/api/furniture/public/${id}`);
+    console.log("ID :", id);
+console.log("Réponse API :", res.data);
     furniture.value = res.data;
   } catch (err) {
     error.value = "Impossible de charger le meuble.";
@@ -97,17 +100,20 @@ const addToCart = () => {
   max-width: 1200px;
 }
 
-.images {
+.pictures {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.main-image {
-  width: 500px;
-  height: 400px;
-  object-fit: cover;
+.main-picture {
+  max-width: 500px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   border-radius: 10px;
+  background: #f5f5f5;
 }
 
 .thumbs {

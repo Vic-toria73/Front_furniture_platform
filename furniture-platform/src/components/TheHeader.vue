@@ -21,19 +21,18 @@
       </h2>
     </div>
 
-    <!-- Navbar -->
-    <navbar-container/>
+    <!-- Navbar (renommée pour éviter les conflits) -->
+    <NavbarWrapper class="header-navbar"/>
   </header>
 </template>
 
 <script setup lang="ts">
-import NavbarContainer from './NavbarContainer.vue';
+import NavbarWrapper from './navbars/NavbarWrapper.vue';
 
 defineOptions({ name: 'Header' })
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap');
 
 /* === STRUCTURE GLOBALE === */
 .header {
@@ -46,7 +45,7 @@ defineOptions({ name: 'Header' })
   font-family: 'Text Me One', sans-serif;
 }
 
-/* === LOGO (gauche) === */
+/* === LOGO === */
 .logo-container {
   flex: 1;
   display: flex;
@@ -59,7 +58,7 @@ defineOptions({ name: 'Header' })
   width: auto;
 }
 
-/* === TITRE (centre) === */
+/* === TITRE === */
 .title-container {
   flex: 1;
   display: flex;
@@ -81,20 +80,20 @@ defineOptions({ name: 'Header' })
   color: #f5f2f0;
 }
 
-/* === NAVBAR (droite) === */
-.navbar {
+/* === NAVBAR (isolée des styles globaux) === */
+.header-navbar {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 1.5rem;
+  gap: 3rem;
 }
 
-/* === LIENS NAVBAR === */
-.navbar a {
+/* Styles des liens à l’intérieur de la navbar */
+.header-navbar a {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 1rem;
   padding: 0.4rem 0.8rem;
   color: white;
   border-radius: 0.4rem;
@@ -102,15 +101,15 @@ defineOptions({ name: 'Header' })
   transition: all 0.25s ease;
 }
 
-/* Effet hover : éclaircissement + zoom léger */
-.navbar a:hover {
-  background-color: #a87b5b; /* nuance plus claire du header */
+/* Hover : éclaircissement + zoom */
+.header-navbar a:hover {
+  background-color: #a87b5b;
   transform: scale(1.08);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* Lien actif (facultatif si tu veux le marquer) */
-.navbar a.router-link-active {
+/* Actif */
+.header-navbar a.router-link-active {
   background-color: #b68a6c;
   font-weight: 600;
 }
@@ -124,7 +123,7 @@ defineOptions({ name: 'Header' })
   }
 
   .logo-container,
-  .navbar {
+  .header-navbar {
     justify-content: center;
   }
 
@@ -140,7 +139,7 @@ defineOptions({ name: 'Header' })
     font-size: 0.9rem;
   }
 
-  .navbar {
+  .header-navbar {
     gap: 1rem;
   }
 }

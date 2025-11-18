@@ -1,4 +1,5 @@
 import api from "./api";
+import { useAuthStore } from "@/stores/authStore";
 
 export interface RegisterData {
   email: string;
@@ -19,11 +20,18 @@ export const registerUser = async (data: RegisterData) => {
 
 export const loginUser = async (data: LoginData) => {
   const response = await api.post("/auth/login", data);
+
+    if (response.status !== 200) throw new Error(`Erreur HTTP ${response.status}`);
+
   // On stocke le token JWT
   if (response.data.token) {
     localStorage.setItem("token", response.data.token);
   }
-  return response.data;
+  console.log(response);
+  const auth = useAuthStore();
+  auth.login(response.data.role, response.data.id?.toString());
+  
+  return response;
 };
 
 

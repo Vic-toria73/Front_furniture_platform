@@ -12,13 +12,13 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import FurnitureCard from "@/components/FurnitureCard.vue";
-import { getAllFurniture } from "@/services/furnitureService";
+import { fetchFurnitures } from "@/services/furnitureService";
 import type { Furniture } from "@/models/Furniture";
 
 const furniture = ref<Furniture[]>([]);
 
 onMounted(async () => {
-  furniture.value = await getAllFurniture();
+  furniture.value = await fetchFurnitures();
 });
 
 const addToCart = (item: Furniture) => {

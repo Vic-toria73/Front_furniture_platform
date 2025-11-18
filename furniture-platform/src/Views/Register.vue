@@ -1,5 +1,4 @@
 <template>
-  <!-- Message de succès -->
   <div class="success-message" v-if="message">
     <div class="success-icon">
       <CheckCircle class="w-5 h-5" />
@@ -12,92 +11,158 @@
       <h2 class="card-header">Inscription</h2>
 
       <form class="form-container" @submit.prevent="register">
+
+        <!-- Email -->
         <div class="form-group">
-          <label class="form-label">Email *</label>
+          <label>Email *</label>
           <div class="input-icon">
             <Mail class="icon" />
-            <input
-              type="email"
-              v-model="form.email"
-              placeholder="Votre email"
-              required
-            />
+            <input type="email" v-model="form.email" required />
           </div>
         </div>
 
+        <!-- Prénom -->
         <div class="form-group">
-          <label class="form-label">Prénom *</label>
-          <div class="input-icon">
-            <User class="iconUser" />
-            <input
-              type="text"
-              v-model="form.firstname"
-              placeholder="Votre prénom"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Nom *</label>
+          <label>Prénom *</label>
           <div class="input-icon">
             <User class="icon" />
-            <input
-              type="text"
-              v-model="form.lastname"
-              placeholder="Votre nom"
-              required
-            />
+            <input type="text" v-model="form.firstname" required />
           </div>
         </div>
 
+        <!-- Nom -->
         <div class="form-group">
-          <label class="form-label">Mot de passe *</label>
+          <label>Nom *</label>
+          <div class="input-icon">
+            <User class="icon" />
+            <input type="text" v-model="form.lastname" required />
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="form-group">
+          <label>Mot de passe *</label>
           <div class="input-icon">
             <Lock class="icon" />
+
             <input
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               v-model="form.password"
               placeholder="Votre mot de passe"
               required
             />
+
+            <button type="button" class="toggle-password" @click="showPassword = !showPassword">
+              <Eye v-if="!showPassword" class="eye-icon" />
+              <EyeOff v-else class="eye-icon" />
+            </button>
           </div>
         </div>
+
+        <!-- Confirmation mot de passe -->
+        <div class="form-group">
+          <label>Confirmer le mot de passe *</label>
+          <div class="input-icon">
+            <Lock class="icon" />
+
+            <input
+              :type="showPassword2 ? 'text' : 'password'"
+              v-model="form.password_confirmation"
+              placeholder="Confirmez votre mot de passe"
+              required
+            />
+
+            <button type="button" class="toggle-password" @click="showPassword2 = !showPassword2">
+              <Eye v-if="!showPassword2" class="eye-icon" />
+              <EyeOff v-else class="eye-icon" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Message erreur mots de passe -->
+        <p v-if="error" style="color:red; margin-top:-10px;">
+          {{ error }}
+        </p>
 
         <button class="submit-btn" type="submit">
           <LogIn class="w-5 h-5" />
           <span>S'inscrire</span>
         </button>
+
       </form>
     </div>
   </div>
-
 </template>
 
-<script lang="ts" setup>
-import { reactive, ref } from "vue";
-import { registerUser } from "../services/authService";
-import TheHeader from "@/components/TheHeader.vue";
-import { CheckCircle, Lock, LogIn, Mail, User } from "lucide-vue-next";
 
-const form = reactive({
+
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { Mail, User, Lock, LogIn, CheckCircle, Eye, EyeOff } from "lucide-vue-next";
+
+const router = useRouter();
+
+const form = ref({
   email: "",
   firstname: "",
   lastname: "",
   password: "",
+  password_confirmation: "",
 });
 
+const showPassword = ref(false);
+const showPassword2 = ref(false);
 const message = ref("");
+const error = ref("");
 
 const register = async () => {
+  error.value = "";
+  message.value = "";
+
+  // Vérification mots de passe
+  if (form.value.password !== form.value.password_confirmation) {
+    error.value = "Les mots de passe ne correspondent pas.";
+    return;
+  }
+
   try {
-    const response = await registerUser(form);
-    message.value = response.message || "Inscription réussie !";
-  } catch (error: any) {
-    message.value = error.response?.data?.error || "Erreur lors de l'inscription";
+    const response = await fetch("http://localhost:8082/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        email: form.value.email,
+        firstname: form.value.firstname,
+        lastname: form.value.lastname,
+        password: form.value.password,
+        role: "USER"
+      }),
+    });
+
+    const raw = await response.text();
+    console.log("Réponse brute backend :", raw);
+
+    if (!response.ok) {
+      error.value = raw || "Impossible de créer le compte.";
+      return;
+    }
+
+    message.value = "Inscription réussie 🎉";
+
+    // Redirection après 1,3 seconde
+    setTimeout(() => router.push("/login"), 1300);
+
+  } catch (err) {
+    console.warn("Erreur d'inscription :", err);
+    error.value = "Une erreur est survenue. Réessayez.";
   }
 };
 </script>
+
+
+
+
 <style scoped>
 /* === SUCCESS MESSAGE === */
 .success-message {
@@ -123,9 +188,12 @@ const register = async () => {
 .main-content {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* évite le chevauchement du header */
-  min-height: calc(100vh - 220px); /* 220px = header + footer estimés */
-  padding: 4rem 1rem 6rem; /* ajoute de l’air en haut et en bas */
+  align-items: flex-start;
+  /* évite le chevauchement du header */
+  min-height: calc(100vh - 220px);
+  /* 220px = header + footer estimés */
+  padding: 4rem 1rem 6rem;
+  /* ajoute de l’air en haut et en bas */
   background-color: #f9fafb;
   font-family: 'Text Me One', sans-serif;
 }
@@ -140,7 +208,8 @@ const register = async () => {
   max-width: 420px;
   font-family: 'Text Me One', sans-serif;
   position: relative;
-  z-index: 1; /* évite d'être masqué */
+  z-index: 1;
+  /* évite d'être masqué */
 }
 
 /* === HEADER DE LA CARD === */
@@ -207,5 +276,4 @@ const register = async () => {
 .submit-btn:hover {
   background-color: #276749;
 }
-
 </style>
