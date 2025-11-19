@@ -263,7 +263,6 @@ const register = async () => {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  background-color: #2f855a;
   color: white;
   font-weight: 600;
   border: none;
@@ -273,7 +272,4 @@ const register = async () => {
   transition: background 0.2s ease;
 }
 
-.submit-btn:hover {
-  background-color: #276749;
-}
 </style>

@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
-import FurnitureCard from "@/components/FurnitureCard.vue";
+import FurnitureCard from "@/components/furnitures/FurnitureCard.vue";
 import { fetchFurnitures } from "@/services/furnitureService";
 import type { Furniture } from "@/models/Furniture";
 
