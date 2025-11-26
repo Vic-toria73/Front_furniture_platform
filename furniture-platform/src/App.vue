@@ -32,8 +32,5 @@ html, body, #app {
 }
 
 /* Petit ajustement visuel si nécessaire */
-body {
-  font-family: 'Text Me One', sans-serif;
-  background-color: #faf9f8;
-}
+
 </style>

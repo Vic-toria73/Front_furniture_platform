@@ -18,7 +18,9 @@ import type { Furniture } from "@/models/Furniture";
 const furniture = ref<Furniture[]>([]);
 
 onMounted(async () => {
+  console.log("🔄 onMounted appelé"); // ✅ Ajoute ce log
   furniture.value = await fetchFurnitures();
+  console.log("✅ Meubles chargés:", furniture.value.length); // ✅ Et celui-ci
 });
 
 const addToCart = (item: Furniture) => {

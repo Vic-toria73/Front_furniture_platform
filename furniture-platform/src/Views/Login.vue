@@ -22,7 +22,6 @@
           <div class="input-wrapper">
             <Lock class="icon-left" />
 
-            <!-- 🔥 Correction ici : on utilise bien `password` -->
             <input 
               :type="showPassword ? 'text' : 'password'" 
               v-model="password" 
@@ -65,7 +64,6 @@ const messageType = ref<"success" | "error">("success");
 const auth = useAuthStore();
 const router = useRouter();
 
-/* ---------- LOGIN ---------- */
 const handleLogin = async () => {
   try {
     const response = await loginUser({

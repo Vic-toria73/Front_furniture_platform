@@ -13,7 +13,7 @@
                 <span>Mes commandes</span>
             </router-link>
 
-            <router-link to="/account" class="card">
+            <router-link to="/my-account" class="card">
                 <User class="icon" />
                 <span>Mon compte</span>
             </router-link>
@@ -22,12 +22,17 @@
                 <PlusCircle class="icon" />
                 <span>Déposer une annonce</span>
             </router-link>
+
+            <router-link to="/my-ads" class="card">
+                <FileSpreadsheet class="icon" />
+                <span>Mes annonce</span>
+            </router-link>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ShoppingCart, List, User, PlusCircle } from "lucide-vue-next"
+import { ShoppingCart, List, User, PlusCircle, FileSpreadsheet } from "lucide-vue-next"
 </script>
 
 <style scoped>

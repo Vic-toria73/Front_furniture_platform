@@ -1,4 +1,5 @@
 import type { TypeModel } from "./TypeModel";
+import type { ColorModel } from "./ColorModels";
 
 export interface Picture {
   id: number;
@@ -6,6 +7,11 @@ export interface Picture {
   altText?: string;
   createdAt: string;
   updatedAt: string;
+}
+ 
+export interface MaterialModel {
+  id: number;
+  name: string;
 }
 
 export type FurnitureStatus =
@@ -15,7 +21,8 @@ export type FurnitureStatus =
   | "AVAILABLE"
   | "RESERVED"
   | "SOLD"
-  | "DELETED";
+  | "DELETED"
+  | "REJECTED";
 
 export interface Furniture {
   id: number;
@@ -24,6 +31,10 @@ export interface Furniture {
   height?: number;
   width?: number;
   price?: number;
+  color?: ColorModel;
+  colorId?: number;
+  material?: MaterialModel;
+  materialId?: number; 
   status: FurnitureStatus;
   type?: TypeModel;
   typeId?: number;
