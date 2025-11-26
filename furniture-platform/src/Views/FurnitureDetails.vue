@@ -1,47 +1,49 @@
 <template>
   <div class="container">
-    
+
     <!-- LOADING -->
     <div v-if="loading" class="loading">Chargement...</div>
 
     <!-- ERREUR -->
     <div v-else-if="error" class="error">{{ error }}</div>
 
-    <!-- PAGE DETAIL (ne s'affiche que si furniture existe) -->
+    <!-- PAGE DETAIL -->
     <div v-else-if="furniture" class="detail">
 
-      <!-- Section image -->
+      <!-- SECTION IMAGES -->
       <div class="pictures">
-        <img
+        <img 
           class="main-picture"
-          :src="selectedImage || furniture.pictures?.[0]?.url || '/images/placeholder.png'"
+          :src="selectedImage ?? defaultImage"
           :alt="furniture.name"
           @error="onImageError"
         />
 
         <div class="thumbs">
-          <img
+          <img 
             v-for="pic in furniture.pictures"
             :key="pic.id"
             class="thumb"
-            :src="pic.url"
-            :alt="pic.altText"
-            @click="selectedImage = pic.url"
+            :src="fixUrl(pic.url)"
+            :alt="pic.altText || 'Image meuble'"
+            @click="select(pic.url)"
             @error="onImageError"
           />
         </div>
       </div>
 
-      <!-- Section description -->
+      <!-- SECTION TEXTE -->
       <div class="info">
         <h1>{{ furniture.name }}</h1>
-        <p class="type"><strong>Type :</strong> {{ furniture.type?.name }}</p>
+        <p><strong>Type :</strong> {{ furniture.type?.name }}</p>
+        <p><strong>Couleur :</strong> {{ furniture.color?.name }}</p>
+        <p><strong>Matériaux :</strong> {{ furniture.material?.name }}</p>
+        <p><strong>Hauteur :</strong> {{ furniture.height }} cm</p>
+        <p><strong>Largeur :</strong> {{ furniture.width }} cm</p>
         <p class="price">{{ furniture.price }} €</p>
         <p class="description">{{ furniture.description }}</p>
 
-        <button @click="addToCart" class="btn">
-          Ajouter au panier
-        </button>
+        <button @click="addToCart" class="btn">Ajouter au panier</button>
       </div>
 
     </div>
@@ -50,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import type { Furniture } from "@/models/Furniture";
@@ -62,20 +64,54 @@ const loading = ref(true);
 const error = ref<string | null>(null);
 const selectedImage = ref<string | null>(null);
 
-// Fallback image handler (obligatoire en TS)
-const onImageError = (event: Event) => {
-  const img = event.target as HTMLImageElement;
-  img.src = "/images/placeholder.png";
+const fixUrl = (url: string | undefined) => {
+  if (!url) return "/images/placeholder.png";
+
+  // URL externe
+  if (url.startsWith("http")) return url;
+
+  // Nettoyage
+  let clean = url.replace(/^\/+/, ""); // retire tous les "/" au début
+
+  // Évite le doublon /uploads/uploads/
+  clean = clean.replace(/^uploads\/uploads\//, "uploads/");
+
+  // Si le chemin ne commence pas par "uploads/", on l'ajoute
+  if (!clean.startsWith("uploads/")) {
+    clean = "uploads/" + clean;
+  }
+
+  return `http://localhost:8082/${clean}`;
 };
 
+// Fallback image
+const onImageError = (event: Event) => {
+  const img = event.target as HTMLImageElement;
+
+  // Empêche la boucle infinie si placeholder ne charge pas
+  if (img.src.includes("placeholder.png")) return;
+
+  img.src = "/images/placeholder.png";
+}
+
+// Image par défaut
+const defaultImage = computed(() => {
+  const first = furniture.value?.pictures?.[0];
+  return fixUrl(first?.url);
+});
+
+// Click miniature
+const select = (url: string) => {
+  selectedImage.value = fixUrl(url);
+};
+
+// Charge annonce
 onMounted(async () => {
   try {
     const id = route.params.id;
     const res = await axios.get(`/api/furniture/public/${id}`);
-    console.log("ID :", id);
-console.log("Réponse API :", res.data);
     furniture.value = res.data;
-  } catch (err) {
+  } catch {
     error.value = "Impossible de charger le meuble.";
   } finally {
     loading.value = false;
@@ -109,8 +145,6 @@ const addToCart = () => {
 .main-picture {
   max-width: 500px;
   max-height: 400px;
-  width: auto;
-  height: auto;
   object-fit: contain;
   border-radius: 10px;
   background: #f5f5f5;
@@ -144,13 +178,11 @@ const addToCart = () => {
 .price {
   font-size: 2rem;
   font-weight: bold;
-  color: #3a7;
 }
 
 .btn {
   background: #3a7;
   color: white;
-  border: none;
   padding: 12px 20px;
   border-radius: 8px;
   font-size: 1.1rem;

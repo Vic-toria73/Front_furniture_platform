@@ -1,9 +1,9 @@
 <template>
   <div class="navbar-user">
-    <NavbarLink to="/cart">Mon panier</NavbarLink>
-    <NavbarLink to="/user">Mon compte</NavbarLink>
+    <NavbarLink to="/cart"> <ShoppingCart/> Mon panier</NavbarLink>
+    <NavbarLink to="/user"> <User /> Mon compte</NavbarLink>
 
-    <button class="logout-btn" @click="onLogout">Déconnexion</button>
+    <button class="logout-btn" @click="onLogout"> <LogOut/> Déconnexion</button>
   </div>
 </template>
 
@@ -11,6 +11,8 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
 import NavbarLink from "./NavbarLink.vue";
+import { LogOut, ShoppingCart, User } from "lucide-vue-next";
+
 
 const auth = useAuthStore();
 const router = useRouter();

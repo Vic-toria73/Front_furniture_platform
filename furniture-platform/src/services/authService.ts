@@ -33,5 +33,3 @@ export const loginUser = async (data: LoginData) => {
   
   return response;
 };
-
-

@@ -6,92 +6,104 @@
     {{ message }}
   </div>
 
-  <div class="main-content">
-    <div class="card">
-      <h2 class="card-header">Inscription</h2>
+<div class="main-content">
+  <div class="card">
+    <h2 class="card-header">Inscription</h2>
 
-      <form class="form-container" @submit.prevent="register">
+    <form class="form-container" @submit.prevent="register">
 
-        <!-- Email -->
-        <div class="form-group">
-          <label>Email *</label>
-          <div class="input-icon">
-            <Mail class="icon" />
-            <input type="email" v-model="form.email" required />
-          </div>
+      <!-- Email -->
+      <div class="form-group">
+        <label for="emailInput">Email *</label>
+        <div class="input-icon">
+          <Mail class="icon" />
+          <input id="emailInput" type="email" v-model="form.email" required />
         </div>
+      </div>
 
-        <!-- Prénom -->
-        <div class="form-group">
-          <label>Prénom *</label>
-          <div class="input-icon">
-            <User class="icon" />
-            <input type="text" v-model="form.firstname" required />
-          </div>
+      <!-- Prénom -->
+      <div class="form-group">
+        <label for="firstNameInput">Prénom *</label>
+        <div class="input-icon">
+          <User class="icon" />
+          <input id="firstNameInput" type="text" v-model="form.firstname" required />
         </div>
+      </div>
 
-        <!-- Nom -->
-        <div class="form-group">
-          <label>Nom *</label>
-          <div class="input-icon">
-            <User class="icon" />
-            <input type="text" v-model="form.lastname" required />
-          </div>
+      <!-- Nom -->
+      <div class="form-group">
+        <label for="lastNameInput">Nom *</label>
+        <div class="input-icon">
+          <User class="icon" />
+          <input id="lastNameInput" type="text" v-model="form.lastname" required />
         </div>
+      </div>
 
-        <!-- Mot de passe -->
-        <div class="form-group">
-          <label>Mot de passe *</label>
-          <div class="input-icon">
-            <Lock class="icon" />
+      <!-- Mot de passe -->
+      <div class="form-group">
+        <label for="passwordInput">Mot de passe *</label>
+        <div class="input-icon">
+          <Lock class="icon" />
 
-            <input
-              :type="showPassword ? 'text' : 'password'"
-              v-model="form.password"
-              placeholder="Votre mot de passe"
-              required
-            />
+          <input
+            id="passwordInput"
+            :type="showPassword ? 'text' : 'password'"
+            v-model="form.password"
+            placeholder="Votre mot de passe"
+            required
+          />
 
-            <button type="button" class="toggle-password" @click="showPassword = !showPassword">
-              <Eye v-if="!showPassword" class="eye-icon" />
-              <EyeOff v-else class="eye-icon" />
-            </button>
-          </div>
+          <button
+            type="button"
+            class="toggle-password"
+            @click="showPassword = !showPassword"
+            aria-label="Afficher ou masquer le mot de passe"
+          >
+            <Eye v-if="!showPassword" class="eye-icon" />
+            <EyeOff v-else class="eye-icon" />
+          </button>
         </div>
+      </div>
 
-        <!-- Confirmation mot de passe -->
-        <div class="form-group">
-          <label>Confirmer le mot de passe *</label>
-          <div class="input-icon">
-            <Lock class="icon" />
+      <!-- Confirmation mot de passe -->
+      <div class="form-group">
+        <label for="passwordConfirmInput">Confirmer le mot de passe *</label>
+        <div class="input-icon">
+          <Lock class="icon" />
 
-            <input
-              :type="showPassword2 ? 'text' : 'password'"
-              v-model="form.password_confirmation"
-              placeholder="Confirmez votre mot de passe"
-              required
-            />
+          <input
+            id="passwordConfirmInput"
+            :type="showPassword2 ? 'text' : 'password'"
+            v-model="form.password_confirmation"
+            placeholder="Confirmez votre mot de passe"
+            required
+          />
 
-            <button type="button" class="toggle-password" @click="showPassword2 = !showPassword2">
-              <Eye v-if="!showPassword2" class="eye-icon" />
-              <EyeOff v-else class="eye-icon" />
-            </button>
-          </div>
+          <button
+            type="button"
+            class="toggle-password"
+            @click="showPassword2 = !showPassword2"
+            aria-label="Afficher ou masquer la confirmation du mot de passe"
+          >
+            <Eye v-if="!showPassword2" class="eye-icon" />
+            <EyeOff v-else class="eye-icon" />
+          </button>
         </div>
+      </div>
 
-        <!-- Message erreur mots de passe -->
-        <p v-if="error" style="color:red; margin-top:-10px;">
-          {{ error }}
-        </p>
+      <!-- Message erreur -->
+      <p v-if="error" style="color:red; margin-top:-10px;">
+        {{ error }}
+      </p>
 
-        <button class="submit-btn" type="submit">
-          <LogIn class="w-5 h-5" />
-          <span>S'inscrire</span>
-        </button>
+      <button class="submit-btn" type="submit">
+        <LogIn class="w-5 h-5" />
+        <span>S'inscrire</span>
+      </button>
 
-      </form>
-    </div>
+    </form>
   </div>
+</div>
 </template>
 
 
@@ -263,7 +275,6 @@ const register = async () => {
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  background-color: #2f855a;
   color: white;
   font-weight: 600;
   border: none;
@@ -273,7 +284,4 @@ const register = async () => {
   transition: background 0.2s ease;
 }
 
-.submit-btn:hover {
-  background-color: #276749;
-}
 </style>

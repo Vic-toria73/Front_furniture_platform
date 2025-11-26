@@ -3,7 +3,8 @@ import { defineStore } from "pinia";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     role: localStorage.getItem("role") || "GUEST",
-    userId: localStorage.getItem("userId") || null
+    userId: localStorage.getItem("userId") || null,
+    token: localStorage.getItem("token") || null
   }),
 
   actions: {

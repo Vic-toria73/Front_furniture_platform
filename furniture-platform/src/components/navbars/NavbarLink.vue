@@ -38,6 +38,6 @@ const IconComponent = computed(() => {
 
 .navbar-link.router-link-active {
   background-color: #b68a6c;
-  font-weight: 600;
+  font-weight: 800;
 }
 </style>

@@ -3,6 +3,6 @@
 </template>
 <script setup lang="ts">
 
-import AdminFurnitureList from '@/components/AdminFurnitureList.vue';
+import AdminFurnitureList from '@/components/furnitures/AdminFurnitureList.vue';
 
 </script>

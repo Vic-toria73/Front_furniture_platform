@@ -1,15 +1,10 @@
 <template>
   <div class="card">
 
-    <router-link 
-      class="card-link"
-      :to="{ name: 'FurnitureDetail', params: { id: furniture.id } }"
-    >
-      <img 
-        :src="furniture.pictures?.[0]?.url" 
-        @error="onImageError" 
-        class="card-img" 
-      />
+    <router-link class="card-link" :to="{ name: 'FurnitureDetail', params: { id: furniture.id } }">
+      <img :src="pictureUrl" @error="onImageError" class="card-img" />
+
+
 
       <h3>{{ furniture.name }}</h3>
       <p v-if="furniture.type">Type : {{ furniture.type.name }}</p>
@@ -17,7 +12,7 @@
     </router-link>
 
     <button class="submit-btn" type="button" @click="addToCart">
-      Ajouter au panier
+      <strong>Ajouter au panier</strong>
     </button>
 
   </div>
@@ -27,7 +22,7 @@
 
 <script lang="ts" setup>
 import type { Furniture } from "@/models/Furniture";
-
+import { computed, watch } from "vue";
 
 const props = defineProps<{ furniture: Furniture }>();
 const emit = defineEmits(["add-to-cart"]);
@@ -38,6 +33,20 @@ const onImageError = (event: Event) => {
   const img = event.target as HTMLImageElement;
   img.src = "/images/placeholder.png";
 }
+
+const pictureUrl = computed(() => {
+  const url = props.furniture.pictures?.[0]?.url;
+  if (!url) return "/images/placeholder.png";
+
+  if (url.startsWith("http")) return url;
+  if (url.startsWith("/images/")) return url;
+
+  return `http://localhost:8082/uploads/${url.replace(/^\/+/, '')}`;
+});
+
+watch(pictureUrl, () => {
+  console.log("URL image :", pictureUrl.value);
+});
 </script>
 
 <style scoped>
@@ -51,7 +60,7 @@ const onImageError = (event: Event) => {
 }
 
 .card-link {
-  flex: 1;              
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -59,8 +68,8 @@ const onImageError = (event: Event) => {
 
 .card-img {
   width: 100%;
-  height: 260px;       
-  object-fit: cover;    
+  height: 260px;
+  object-fit: cover;
   border-radius: 8px;
   background-color: #f5f5f5;
   display: block;
@@ -69,10 +78,10 @@ const onImageError = (event: Event) => {
 .price {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #3a7;
 }
 
 .submit-btn {
-  margin-top: auto;     /* pousse le bouton en bas */
+  margin-top: auto;
+  /* pousse le bouton en bas */
 }
 </style>

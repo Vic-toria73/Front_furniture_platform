@@ -1,9 +1,9 @@
 <template>
   <div class="navbar-admin">
-    <NavbarLink to="/admin/dashboard">Dashboard</NavbarLink>
-    <NavbarLink to="/admin/">Gestion Meubles</NavbarLink>
+    <NavbarLink to="/admin/dashboard"> <LayoutDashboard/> Dashboard</NavbarLink>
+    <NavbarLink to="/admin/"> <Clipboard/> Gestion Meubles</NavbarLink>
 
-    <button class="logout-btn" @click="onLogout">Déconnexion</button>
+    <button class="logout-btn" @click="onLogout"> <LogOut/> Déconnexion</button>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "vue-router";
 import NavbarLink from "./NavbarLink.vue";
+import { Clipboard, LayoutDashboard, LogOut } from "lucide-vue-next";
 
 const auth = useAuthStore();
 const router = useRouter();

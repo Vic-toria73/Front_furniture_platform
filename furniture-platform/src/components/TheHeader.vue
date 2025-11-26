@@ -21,7 +21,6 @@
       </h2>
     </div>
 
-    <!-- Navbar (renommée pour éviter les conflits) -->
     <NavbarWrapper class="header-navbar"/>
   </header>
 </template>
@@ -45,6 +44,15 @@ defineOptions({ name: 'Header' })
   font-family: 'Text Me One', sans-serif;
 }
 
+.header-subtitle {
+  font-size: 1.15rem;
+  margin-top: 0.2rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+
+  color: #fff8f4;             /* couleur plus claire */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35); /* renforce la lisibilité */
+}
 /* === LOGO === */
 .logo-container {
   flex: 1;
@@ -80,7 +88,7 @@ defineOptions({ name: 'Header' })
   color: #f5f2f0;
 }
 
-/* === NAVBAR (isolée des styles globaux) === */
+/* === NAVBAR */
 .header-navbar {
   flex: 1;
   display: flex;

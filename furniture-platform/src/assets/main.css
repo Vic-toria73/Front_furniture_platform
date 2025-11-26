@@ -106,6 +106,12 @@ nav {
   }
 }
 
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem; 
+}
+
 /* === FOOTER === */
 footer {
   width: 100%;
@@ -172,17 +178,33 @@ select:disabled {
   opacity: 0.7;
 }
 
-/* === CARDS === */
+/* === CARD === */
 .card {
-  display: inline-block; /* Adapte la taille à son contenu */
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-color: var(--background);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  font-family: 'Text Me One', sans-serif;
+  position: relative;
+  z-index: 1;
   padding: 1.25rem;
   margin: 1rem auto; /* Centre la carte horizontalement */
   max-width: 90%; /* Empêche de dépasser sur petits écrans */
   min-width: 250px; /* Optionnel : taille mini pour cohérence */
 }
+
+/* === HEADER DE LA CARD === */
+.card-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+
 
 /* centrer plusieurs cartes dans un conteneur */
 .cards-container {
@@ -192,14 +214,7 @@ select:disabled {
   gap: 1.5rem;
 }
 
-/* === TITRE DE LA CARTE === */
-.card-header {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 0.75rem;
-  text-align: center;
-}
+
 
 /* === SUBMIT BUTTONS === */
 .submit-btn,

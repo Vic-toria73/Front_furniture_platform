@@ -7,6 +7,9 @@ import Home from "@/views/Home.vue";
 import Admin from "@/views/Admin.vue";
 import Cart from "@/views/Cart.vue";
 import User from "@/views/User.vue";
+import AddProduct from "@/views/AddProduct.vue";
+import MyAds from "@/views/MyAds.vue";
+import MyAccount from "@/views/MyAccount.vue";
 
 const routes = [
   // Public : guest OK
@@ -26,6 +29,12 @@ const routes = [
   // USER + ADMIN
   { path: "/cart", component: Cart, meta: { requiresUser: true } },
   { path: "/user", component: User, meta: { requiresUser: true } },
+
+
+  //USER
+  { path: "/add-product", component: AddProduct, meta: { requiresUser: true } },
+  { path: "/my-ads", component: MyAds, meta: { requiresUser: true } },
+  { path: "/my-account", component: MyAccount, meta: { requiresUser: true } },  
 
   // ADMIN
   { path: "/admin", component: Admin, meta: { requiresAdmin: true } },
